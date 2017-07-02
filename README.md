@@ -38,7 +38,7 @@
 ```shell
 mysql -uroot -p 数据库名 < ./mysql_init.sql
 ```
-提示：mysql_init.sql在文件根目录中。
+提示：mysql_init.sql在db目录中。
 
 **2. 修改数据库连接密码，在admin/src/main/resources/application.properties,修改数据库连接信息
 
