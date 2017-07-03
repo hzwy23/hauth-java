@@ -2,7 +2,7 @@ package com.asofdate.hauth.authentication;
 
 import com.asofdate.hauth.entity.UserLoginEntity;
 import com.asofdate.hauth.service.LoginService;
-import org.json.JSONObject;
+import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             return auth;
         } else {
             logger.info("登录失败,原因是:账号 {}: {}", userLoginEntity.getUsername(), userLoginEntity.getMessage());
-            throw new BadCredentialsException(JSONObject.wrap(userLoginEntity).toString());
+            throw new BadCredentialsException(new GsonBuilder().create().toJson(userLoginEntity));
         }
     }
 
