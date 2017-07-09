@@ -1,12 +1,12 @@
 package com.asofdate.hauth.controller;
 
 import com.asofdate.hauth.authentication.JwtService;
+import com.asofdate.hauth.dto.UserDTO;
 import com.asofdate.hauth.entity.UserEntity;
 import com.asofdate.hauth.service.AuthService;
 import com.asofdate.hauth.service.UserService;
 import com.asofdate.utils.Hret;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.asofdate.utils.ParseJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,10 +77,10 @@ public class UserController {
             response.setStatus(422);
             return Hret.error(422, "两次输入的密码不正确，请重新确认密码", null);
         }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("userId", userId);
-        jsonObject.put("newPasswd", newPasswd);
-        int size = userService.changePassword(jsonObject);
+        UserDTO m = new UserDTO();
+        m.setUserId(userId);
+        m.setNewPasswd(newPasswd);
+        int size = userService.changePassword(m);
         if (size == 1) {
             return Hret.success(200, "success", null);
         }
@@ -91,8 +91,8 @@ public class UserController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(HttpServletResponse response, HttpServletRequest request) {
         String json = request.getParameter("JSON");
-        JSONArray jsonArray = new JSONArray(json);
-        int size = userService.delete(jsonArray);
+        List<UserEntity> list = new ParseJson<UserEntity>().toList(json);
+        int size = userService.delete(list);
         if (size == 1) {
             return Hret.success(200, "success", null);
         }

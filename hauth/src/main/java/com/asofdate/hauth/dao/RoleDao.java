@@ -1,7 +1,7 @@
 package com.asofdate.hauth.dao;
 
 import com.asofdate.hauth.entity.RoleEntity;
-import org.json.JSONArray;
+import com.asofdate.hauth.entity.UserRoleEntity;
 
 import java.util.List;
 
@@ -17,11 +17,11 @@ public interface RoleDao {
 
     List<RoleEntity> getOwner(String userId);
 
-    int auth(JSONArray jsonArray, String modifyUserId);
+    int auth(List<UserRoleEntity> list, String modifyUserId);
 
-    int revoke(JSONArray jsonArray);
+    int revoke(List<UserRoleEntity> list);
 
-    int batchAuth(JSONArray jsonArray, String modifyUserId);
+    int batchAuth(List<UserRoleEntity> list, String modifyUserId);
 
     int add(RoleEntity roleEntity);
 

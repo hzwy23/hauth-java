@@ -15,7 +15,7 @@ public interface ShareDomainDao {
 
     int add(ShareDomainEntity shareDomainEntity);
 
-    int delete(JSONArray jsonArray);
+    int delete(List<ShareDomainEntity> list);
 
     int update(ShareDomainEntity shareDomainEntity);
 }

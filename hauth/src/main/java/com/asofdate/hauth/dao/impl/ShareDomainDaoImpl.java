@@ -46,11 +46,9 @@ public class ShareDomainDaoImpl implements ShareDomainDao {
 
     @Transactional
     @Override
-    public int delete(JSONArray jsonArray) {
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject m = (JSONObject) jsonArray.get(i);
-            jdbcTemplate.update(SqlDefine.sys_rdbms_087,
-                    m.getString("uuid"));
+    public int delete(List<ShareDomainEntity> list) {
+        for (ShareDomainEntity m:list) {
+            jdbcTemplate.update(SqlDefine.sys_rdbms_087, m.getUuid());
         }
         return 1;
     }

@@ -8,4 +8,4 @@ mysql -uroot -p databasename < ./mysql_init.sql
 ```
 
 
-如果是oracle数据库，请连接上数据库后，执行oracle_init.sql脚本。
+如果是oracle数据库，暂时不开放，可以自行根据mysql修改，或发送邮件，联系：hzwy23@163.com

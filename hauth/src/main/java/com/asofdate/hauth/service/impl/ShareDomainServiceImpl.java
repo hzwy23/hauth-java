@@ -33,8 +33,8 @@ public class ShareDomainServiceImpl implements ShareDomainService {
     }
 
     @Override
-    public int delete(JSONArray jsonArray) {
-        return shareDomainDao.delete(jsonArray);
+    public int delete(List<ShareDomainEntity> list) {
+        return shareDomainDao.delete(list);
     }
 
     @Override

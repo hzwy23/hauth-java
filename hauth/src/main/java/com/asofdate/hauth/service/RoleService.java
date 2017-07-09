@@ -1,6 +1,7 @@
 package com.asofdate.hauth.service;
 
 import com.asofdate.hauth.entity.RoleEntity;
+import com.asofdate.hauth.entity.UserRoleEntity;
 import com.asofdate.utils.RetMsg;
 import org.json.JSONArray;
 
@@ -18,11 +19,11 @@ public interface RoleService {
 
     RoleEntity getDetails(String roleId);
 
-    int auth(JSONArray jsonArray, String modifyUserId);
+    int auth(List<UserRoleEntity> list, String modifyUserId);
 
-    int revoke(JSONArray jsonArray);
+    int revoke(List<UserRoleEntity> list);
 
-    int batchAuth(JSONArray jsonArray, String modifyUserId);
+    int batchAuth(List<UserRoleEntity> list, String modifyUserId);
 
     RetMsg add(RoleEntity roleEntity);
 

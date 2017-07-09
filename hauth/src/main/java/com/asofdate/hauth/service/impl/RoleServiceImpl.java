@@ -2,11 +2,11 @@ package com.asofdate.hauth.service.impl;
 
 import com.asofdate.hauth.dao.RoleDao;
 import com.asofdate.hauth.entity.RoleEntity;
+import com.asofdate.hauth.entity.UserRoleEntity;
 import com.asofdate.hauth.service.RoleService;
 import com.asofdate.utils.RetMsg;
 import com.asofdate.utils.SysStatus;
 import com.asofdate.utils.factory.RetMsgFactory;
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,18 +44,18 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public int auth(JSONArray jsonArray, String modifyUserId) {
-        return roleDao.auth(jsonArray, modifyUserId);
+    public int auth(List<UserRoleEntity> list, String modifyUserId) {
+        return roleDao.auth(list, modifyUserId);
     }
 
     @Override
-    public int revoke(JSONArray jsonArray) {
-        return roleDao.revoke(jsonArray);
+    public int revoke(List<UserRoleEntity> list) {
+        return roleDao.revoke(list);
     }
 
     @Override
-    public int batchAuth(JSONArray jsonArray, String modifyUserId) {
-        return roleDao.batchAuth(jsonArray, modifyUserId);
+    public int batchAuth(List<UserRoleEntity> list, String modifyUserId) {
+        return roleDao.batchAuth(list, modifyUserId);
     }
 
     @Override

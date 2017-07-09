@@ -8,8 +8,9 @@ import com.asofdate.hauth.service.OrgService;
 import com.asofdate.utils.Hret;
 import com.asofdate.utils.JoinCode;
 import com.asofdate.utils.RetMsg;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,22 +73,18 @@ public class OrgController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(HttpServletResponse response, HttpServletRequest request) {
-        String JSON = request.getParameter("JSON");
-        JSONArray jsonArray = new JSONArray(JSON);
-        List<OrgEntity> list = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject js = (JSONObject) jsonArray.get(i);
-            String orgId = js.getString("org_id");
-            String domainId = js.getString("domain_id");
+        String json = request.getParameter("JSON");
+        List<OrgEntity> list = new GsonBuilder().create().fromJson(json, 
+        		new TypeToken<List<OrgEntity>>(){}.getType());;
+        for (OrgEntity m:list) {
+
+            String orgId = m.getOrg_id();
+            String domainId = m.getDomain_id();
 
             AuthDTO authDTO = authService.domainAuth(request, domainId, "w");
             if (!authDTO.getStatus()) {
                 return Hret.error(403, "您没有权限删除域【" + domainId + "】中的机构信息", null);
             }
-            OrgEntity entity = new OrgEntity();
-            entity.setOrg_id(orgId);
-            entity.setDomain_id(domainId);
-            list.add(entity);
         }
 
         RetMsg retMsg = orgService.delete(list);

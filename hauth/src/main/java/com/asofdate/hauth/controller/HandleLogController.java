@@ -1,9 +1,9 @@
 package com.asofdate.hauth.controller;
 
 import com.asofdate.hauth.authentication.JwtService;
+import com.asofdate.hauth.dto.PagingDto;
 import com.asofdate.hauth.entity.HandleLogEntity;
 import com.asofdate.hauth.service.HandleLogService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,15 +22,13 @@ public class HandleLogController {
     private HandleLogService handleLogService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAll(HttpServletRequest request) {
+    public PagingDto<List<HandleLogEntity>> getAll(HttpServletRequest request) {
         String domainId = JwtService.getConnUser(request).getDomainID();
         String offset = request.getParameter("offset");
         String limit = request.getParameter("limit");
         List<HandleLogEntity> list = handleLogService.findAll(domainId, Integer.parseInt(offset), Integer.parseInt(limit));
-        JSONObject jsonObject = new JSONObject();
+
         Integer total = handleLogService.getTotal(domainId);
-        jsonObject.put("total", total);
-        jsonObject.put("rows", list);
-        return jsonObject.toString();
+        return new PagingDto<List<HandleLogEntity>>(total,list);
     }
 }

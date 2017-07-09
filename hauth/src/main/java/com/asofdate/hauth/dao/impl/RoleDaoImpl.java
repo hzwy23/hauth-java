@@ -2,10 +2,9 @@ package com.asofdate.hauth.dao.impl;
 
 import com.asofdate.hauth.dao.RoleDao;
 import com.asofdate.hauth.entity.RoleEntity;
+import com.asofdate.hauth.entity.UserRoleEntity;
 import com.asofdate.sql.SqlDefine;
 import com.asofdate.utils.JoinCode;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,11 +64,10 @@ public class RoleDaoImpl implements RoleDao {
 
     @Transactional
     @Override
-    public int auth(JSONArray jsonArray, String modifyUserId) {
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject arg = (JSONObject) jsonArray.get(i);
-            String userId = arg.getString("user_id");
-            String roleId = arg.getString("role_id");
+    public int auth(List<UserRoleEntity> list, String modifyUserId) {
+        for (UserRoleEntity m:list) {
+            String userId =m.getUserId();
+            String roleId = m.getRoleId();
             String uuid = JoinCode.join(userId, roleId);
             jdbcTemplate.update(SqlDefine.sys_rdbms_096, uuid, roleId, userId, modifyUserId);
         }
@@ -78,11 +76,10 @@ public class RoleDaoImpl implements RoleDao {
 
     @Transactional
     @Override
-    public int batchAuth(JSONArray jsonArray, String modifyUserId) {
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject arg = (JSONObject) jsonArray.get(i);
-            String userId = arg.getString("user_id");
-            String roleId = arg.getString("role_id");
+    public int batchAuth(List<UserRoleEntity> list, String modifyUserId) {
+        for (UserRoleEntity m:list) {
+            String userId =m.getUserId();
+            String roleId = m.getRoleId();
             String uuid = JoinCode.join(userId, roleId);
             try {
                 jdbcTemplate.update(SqlDefine.sys_rdbms_096, uuid, roleId, userId, modifyUserId);
@@ -96,11 +93,10 @@ public class RoleDaoImpl implements RoleDao {
 
     @Transactional
     @Override
-    public int revoke(JSONArray jsonArray) {
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject arg = (JSONObject) jsonArray.get(i);
-            String userId = arg.getString("user_id");
-            String roleId = arg.getString("role_id");
+    public int revoke(List<UserRoleEntity> list) {
+        for (UserRoleEntity m:list) {
+            String userId = m.getUserId();
+            String roleId = m.getRoleId();
             String uuid = JoinCode.join(userId, roleId);
             jdbcTemplate.update(SqlDefine.sys_rdbms_097, uuid);
         }

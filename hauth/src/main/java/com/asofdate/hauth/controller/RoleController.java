@@ -3,14 +3,15 @@ package com.asofdate.hauth.controller;
 import com.asofdate.hauth.authentication.JwtService;
 import com.asofdate.hauth.dto.AuthDTO;
 import com.asofdate.hauth.entity.RoleEntity;
+import com.asofdate.hauth.entity.UserRoleEntity;
 import com.asofdate.hauth.service.AuthService;
 import com.asofdate.hauth.service.RoleService;
 import com.asofdate.utils.Hret;
 import com.asofdate.utils.JoinCode;
+import com.asofdate.utils.ParseJson;
 import com.asofdate.utils.RetMsg;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +51,10 @@ public class RoleController {
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public String auth(HttpServletResponse response, HttpServletRequest request) {
         String modifyUserId = JwtService.getConnUser(request).getUserId();
-        JSONArray json = new JSONArray(request.getParameter("JSON"));
+        String json = request.getParameter("JSON");
+        List<UserRoleEntity> list = new ParseJson<UserRoleEntity>().toList(json);
         try {
-            int size = roleService.auth(json, modifyUserId);
+            int size = roleService.auth(list, modifyUserId);
             if (1 == size) {
                 return Hret.success(200, "success", null);
             }
@@ -69,9 +71,10 @@ public class RoleController {
     @RequestMapping(value = "/auth/batch", method = RequestMethod.POST)
     public String batchAuth(HttpServletResponse response, HttpServletRequest request) {
         String modifyUserId = JwtService.getConnUser(request).getUserId();
-        JSONArray json = new JSONArray(request.getParameter("JSON"));
+        String json = request.getParameter("JSON");
+        List<UserRoleEntity> list = new ParseJson<UserRoleEntity>().toList(json);
         try {
-            int size = roleService.batchAuth(json, modifyUserId);
+            int size = roleService.batchAuth(list, modifyUserId);
             if (1 == size) {
                 return Hret.success(200, "success", null);
             }
@@ -86,9 +89,10 @@ public class RoleController {
 
     @RequestMapping(value = "/revoke", method = RequestMethod.POST)
     public String revoke(HttpServletResponse response, HttpServletRequest request) {
-        JSONArray json = new JSONArray(request.getParameter("JSON"));
+        String json = request.getParameter("JSON");
+        List<UserRoleEntity> list = new ParseJson<UserRoleEntity>().toList(json);
         try {
-            int size = roleService.revoke(json);
+            int size = roleService.revoke(list);
             if (1 == size) {
                 return Hret.success(200, "success", null);
             }

@@ -46,8 +46,6 @@ public class LoggerHandlerInterceptor implements HandlerInterceptor {
         String uri = httpServletRequest.getRequestURI();
         Map<String, String[]> map = httpServletRequest.getParameterMap();
 
-
-
         Map<String,String> dt = new HashMap<>();
         for (Map.Entry<String, String[]> m : map.entrySet()) {
             if ("_".equals(m.getKey())) {

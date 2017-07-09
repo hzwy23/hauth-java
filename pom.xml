@@ -9,7 +9,7 @@
 	<modules>
 		<module>hauth</module>
 		<module>admin</module>
-	</modules>
+    </modules>
 	<packaging>pom</packaging>
 
 	<name>asofdate</name>

@@ -5,8 +5,7 @@ import com.asofdate.hauth.entity.ShareDomainEntity;
 import com.asofdate.hauth.service.AuthService;
 import com.asofdate.hauth.service.ShareDomainService;
 import com.asofdate.utils.Hret;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.asofdate.utils.ParseJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,22 +48,22 @@ public class ShareDomainController {
         }
 
         if (arg == null) {
-            return Hret.error(421, "解析参数失败", JSONObject.NULL);
+            return Hret.error(421, "解析参数失败", null);
         }
         int size = shareDomainService.add(arg);
         if (size == 1) {
-            return Hret.success(200, "success", JSONObject.NULL);
+            return Hret.success(200, "success", null);
         }
 
         response.setStatus(421);
-        return Hret.error(421, "授权域权限信息失败,请联系管理员", JSONObject.NULL);
+        return Hret.error(421, "授权域权限信息失败,请联系管理员", null);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public String update(HttpServletResponse response, HttpServletRequest request) {
         ShareDomainEntity arg = parse(request);
         if (arg == null) {
-            return Hret.error(421, "解析参数失败", JSONObject.NULL);
+            return Hret.error(421, "解析参数失败", null);
         }
         String domainId = arg.getDomain_id();
         Boolean status = authService.domainAuth(request, domainId, "w").getStatus();
@@ -75,17 +74,17 @@ public class ShareDomainController {
 
         int size = shareDomainService.update(arg);
         if (size == 1) {
-            return Hret.success(200, "success", JSONObject.NULL);
+            return Hret.success(200, "success", null);
         }
 
         response.setStatus(421);
-        return Hret.error(421, "更新域权限信息失败,请联系管理员", JSONObject.NULL);
+        return Hret.error(421, "更新域权限信息失败,请联系管理员", null);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete")
     public String delete(HttpServletResponse response, HttpServletRequest request) {
-        JSONArray args = new JSONArray(request.getParameter("JSON"));
-
+        String args = request.getParameter("JSON");
+        List<ShareDomainEntity> list = new ParseJson<ShareDomainEntity>().toList(args);
         String domainId = request.getParameter("domain_id");
         Boolean status = authService.domainAuth(request, domainId, "w").getStatus();
         if (!status) {
@@ -94,17 +93,17 @@ public class ShareDomainController {
         }
 
         try {
-            int size = shareDomainService.delete(args);
+            int size = shareDomainService.delete(list);
             if (size == 1) {
-                return Hret.success(200, "success", JSONObject.NULL);
+                return Hret.success(200, "success", null);
             }
             response.setStatus(421);
-            return Hret.error(421, "更新域权限信息失败,请联系管理员", JSONObject.NULL);
+            return Hret.error(421, "更新域权限信息失败,请联系管理员", null);
 
         } catch (Exception e) {
             logger.info(e.getMessage());
             response.setStatus(422);
-            return Hret.error(422, "删除域授权信息失败,请联系管理员", JSONObject.NULL);
+            return Hret.error(422, "删除域授权信息失败,请联系管理员", null);
         }
     }
 
