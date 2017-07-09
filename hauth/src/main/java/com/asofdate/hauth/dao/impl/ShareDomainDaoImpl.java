@@ -3,8 +3,6 @@ package com.asofdate.hauth.dao.impl;
 import com.asofdate.hauth.dao.ShareDomainDao;
 import com.asofdate.hauth.entity.ShareDomainEntity;
 import com.asofdate.sql.SqlDefine;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,7 +45,7 @@ public class ShareDomainDaoImpl implements ShareDomainDao {
     @Transactional
     @Override
     public int delete(List<ShareDomainEntity> list) {
-        for (ShareDomainEntity m:list) {
+        for (ShareDomainEntity m : list) {
             jdbcTemplate.update(SqlDefine.sys_rdbms_087, m.getUuid());
         }
         return 1;

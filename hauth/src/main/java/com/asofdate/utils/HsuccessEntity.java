@@ -14,7 +14,7 @@ public class HsuccessEntity {
         this.data = retMsg.getDetails();
     }
 
-    public HsuccessEntity(Integer reply_code,String reply_msg, Object data) {
+    public HsuccessEntity(Integer reply_code, String reply_msg, Object data) {
         this.reply_code = reply_code;
         this.reply_msg = reply_msg;
         this.data = data;

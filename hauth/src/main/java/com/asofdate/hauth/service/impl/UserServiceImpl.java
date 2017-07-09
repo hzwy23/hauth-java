@@ -4,8 +4,6 @@ import com.asofdate.hauth.dao.UserDao;
 import com.asofdate.hauth.dto.UserDTO;
 import com.asofdate.hauth.entity.UserEntity;
 import com.asofdate.hauth.service.UserService;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

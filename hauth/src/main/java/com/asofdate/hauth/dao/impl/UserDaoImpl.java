@@ -7,8 +7,6 @@ import com.asofdate.hauth.entity.OrgEntity;
 import com.asofdate.hauth.entity.UserEntity;
 import com.asofdate.sql.SqlDefine;
 import com.asofdate.utils.CryptoAES;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -84,7 +82,7 @@ public class UserDaoImpl implements UserDao {
     @Transactional
     @Override
     public int delete(List<UserEntity> list) {
-        for (UserEntity m:list) {
+        for (UserEntity m : list) {
             jdbcTemplate.update(SqlDefine.sys_rdbms_007,
                     m.getUser_id(),
                     m.getOrg_unit_id());

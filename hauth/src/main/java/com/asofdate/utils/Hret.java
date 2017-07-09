@@ -13,12 +13,12 @@ public class Hret {
     }
 
     public static String error(int status, String message, Object result) {
-        HerrorEntity herrorEntity = new HerrorEntity(status,message,result);
+        HerrorEntity herrorEntity = new HerrorEntity(status, message, result);
         return new GsonBuilder().create().toJson(herrorEntity);
     }
 
     public static String success(int status, String message, Object result) {
-        HsuccessEntity hsuccessEntity = new HsuccessEntity(status,message,result);
+        HsuccessEntity hsuccessEntity = new HsuccessEntity(status, message, result);
         return new GsonBuilder().create().toJson(hsuccessEntity);
     }
 
@@ -28,7 +28,7 @@ public class Hret {
     }
 
     public static String success() {
-        HsuccessEntity hsuccessEntity = new HsuccessEntity(200,"success",null);
+        HsuccessEntity hsuccessEntity = new HsuccessEntity(200, "success", null);
         return new GsonBuilder().create().toJson(hsuccessEntity);
     }
 }

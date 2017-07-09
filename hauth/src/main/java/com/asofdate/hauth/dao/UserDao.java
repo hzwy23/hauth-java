@@ -2,8 +2,6 @@ package com.asofdate.hauth.dao;
 
 import com.asofdate.hauth.dto.UserDTO;
 import com.asofdate.hauth.entity.UserEntity;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.List;
 

@@ -29,6 +29,6 @@ public class HandleLogController {
         List<HandleLogEntity> list = handleLogService.findAll(domainId, Integer.parseInt(offset), Integer.parseInt(limit));
 
         Integer total = handleLogService.getTotal(domainId);
-        return new PagingDto<List<HandleLogEntity>>(total,list);
+        return new PagingDto<List<HandleLogEntity>>(total, list);
     }
 }

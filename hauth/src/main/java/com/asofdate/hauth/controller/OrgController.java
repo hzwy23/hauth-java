@@ -10,7 +10,6 @@ import com.asofdate.utils.JoinCode;
 import com.asofdate.utils.RetMsg;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,9 +73,11 @@ public class OrgController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(HttpServletResponse response, HttpServletRequest request) {
         String json = request.getParameter("JSON");
-        List<OrgEntity> list = new GsonBuilder().create().fromJson(json, 
-        		new TypeToken<List<OrgEntity>>(){}.getType());;
-        for (OrgEntity m:list) {
+        List<OrgEntity> list = new GsonBuilder().create().fromJson(json,
+                new TypeToken<List<OrgEntity>>() {
+                }.getType());
+        ;
+        for (OrgEntity m : list) {
 
             String orgId = m.getOrg_id();
             String domainId = m.getDomain_id();

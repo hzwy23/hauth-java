@@ -3,7 +3,6 @@ package com.asofdate.hauth.service;
 import com.asofdate.hauth.entity.RoleEntity;
 import com.asofdate.hauth.entity.UserRoleEntity;
 import com.asofdate.utils.RetMsg;
-import org.json.JSONArray;
 
 import java.util.List;
 

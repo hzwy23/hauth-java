@@ -3,7 +3,6 @@ package com.asofdate.hauth.service.impl;
 import com.asofdate.hauth.dao.ShareDomainDao;
 import com.asofdate.hauth.entity.ShareDomainEntity;
 import com.asofdate.hauth.service.ShareDomainService;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

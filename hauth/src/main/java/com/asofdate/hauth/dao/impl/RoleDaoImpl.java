@@ -65,8 +65,8 @@ public class RoleDaoImpl implements RoleDao {
     @Transactional
     @Override
     public int auth(List<UserRoleEntity> list, String modifyUserId) {
-        for (UserRoleEntity m:list) {
-            String userId =m.getUserId();
+        for (UserRoleEntity m : list) {
+            String userId = m.getUserId();
             String roleId = m.getRoleId();
             String uuid = JoinCode.join(userId, roleId);
             jdbcTemplate.update(SqlDefine.sys_rdbms_096, uuid, roleId, userId, modifyUserId);
@@ -77,8 +77,8 @@ public class RoleDaoImpl implements RoleDao {
     @Transactional
     @Override
     public int batchAuth(List<UserRoleEntity> list, String modifyUserId) {
-        for (UserRoleEntity m:list) {
-            String userId =m.getUserId();
+        for (UserRoleEntity m : list) {
+            String userId = m.getUserId();
             String roleId = m.getRoleId();
             String uuid = JoinCode.join(userId, roleId);
             try {
@@ -94,7 +94,7 @@ public class RoleDaoImpl implements RoleDao {
     @Transactional
     @Override
     public int revoke(List<UserRoleEntity> list) {
-        for (UserRoleEntity m:list) {
+        for (UserRoleEntity m : list) {
             String userId = m.getUserId();
             String roleId = m.getRoleId();
             String uuid = JoinCode.join(userId, roleId);

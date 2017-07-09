@@ -42,15 +42,15 @@ public class ThemeController {
         try {
             int code = jdbcTemplate.update(SqlDefine.sys_rdbms_024, themeId, username);
             if (1 == code) {
-                return Hret.success(200,"modify theme info successfully",null);
+                return Hret.success(200, "modify theme info successfully", null);
             } else {
                 response.setStatus(421);
-                return Hret.error(421,"modify user theme failed",null);
+                return Hret.error(421, "modify user theme failed", null);
             }
         } catch (Exception e) {
             logger.info(e.getMessage());
             response.setStatus(422);
-            return Hret.error(422,e.getMessage(),null);
+            return Hret.error(422, e.getMessage(), null);
         }
 
     }
