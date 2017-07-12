@@ -38,15 +38,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         UserLoginEntity userLoginEntity = loginService.loginValidator(name, password);
         // 认证逻辑
         if (userLoginEntity.isFlag()) {
-            // 这里设置权限和角色
-            ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
-            authorities.add(new GrantedAuthorityImpl("AUTH_WRITE"));
-            authorities.add(new GrantedAuthorityImpl("ACTUATOR"));
-
-            // 生成令牌
-            Authentication auth = new UsernamePasswordAuthenticationToken(name, password, authorities);
-            return auth;
+            return getRole(name, password);
         } else {
             logger.info("登录失败,原因是:账号 {}: {}", userLoginEntity.getUsername(), userLoginEntity.getMessage());
             throw new BadCredentialsException(new GsonBuilder().create().toJson(userLoginEntity));
@@ -56,5 +48,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+
+    private Authentication getRole(String name, String passwd) {
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
+        authorities.add(new GrantedAuthorityImpl("AUTH_WRITE"));
+        authorities.add(new GrantedAuthorityImpl("ACTUATOR"));
+        Authentication auth = new UsernamePasswordAuthenticationToken(name, passwd, authorities);
+        return auth;
     }
 }

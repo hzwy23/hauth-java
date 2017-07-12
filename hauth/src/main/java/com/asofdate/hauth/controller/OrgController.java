@@ -10,6 +10,7 @@ import com.asofdate.utils.JoinCode;
 import com.asofdate.utils.RetMsg;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/v1/auth/org")
+@Api("机构定义管理")
 public class OrgController {
     @Autowired
     private AuthService authService;

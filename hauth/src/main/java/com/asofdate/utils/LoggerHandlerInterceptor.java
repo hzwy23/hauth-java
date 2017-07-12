@@ -45,7 +45,12 @@ public class LoggerHandlerInterceptor implements HandlerInterceptor {
         String method = httpServletRequest.getMethod();
         String uri = httpServletRequest.getRequestURI();
         Map<String, String[]> map = httpServletRequest.getParameterMap();
+        Map<String, String> dt = parseJSON(map);
+        String dtvalue = new GsonBuilder().create().toJson(dt);
+        jdbcTemplate.update(SqlDefine.sys_rdbms_207, userId, clientIp, statuCd, method, uri, dtvalue, domainId);
+    }
 
+    private Map<String, String> parseJSON(Map<String, String[]> map) {
         Map<String, String> dt = new HashMap<>();
         for (Map.Entry<String, String[]> m : map.entrySet()) {
             if ("_".equals(m.getKey())) {
@@ -61,7 +66,6 @@ public class LoggerHandlerInterceptor implements HandlerInterceptor {
             }
             dt.put(m.getKey(), val);
         }
-        String dtvalue = new GsonBuilder().create().toJson(dt);
-        jdbcTemplate.update(SqlDefine.sys_rdbms_207, userId, clientIp, statuCd, method, uri, dtvalue, domainId);
+        return dt;
     }
 }

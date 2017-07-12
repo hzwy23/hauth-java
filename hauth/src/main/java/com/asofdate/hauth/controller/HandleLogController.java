@@ -4,6 +4,7 @@ import com.asofdate.hauth.authentication.JwtService;
 import com.asofdate.hauth.dto.PagingDto;
 import com.asofdate.hauth.entity.HandleLogEntity;
 import com.asofdate.hauth.service.HandleLogService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/v1/auth/handle/logs")
+@Api("操作日志管理")
 public class HandleLogController {
     @Autowired
     private HandleLogService handleLogService;

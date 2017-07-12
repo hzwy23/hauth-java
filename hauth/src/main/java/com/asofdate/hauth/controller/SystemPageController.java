@@ -2,6 +2,7 @@ package com.asofdate.hauth.controller;
 
 import com.asofdate.hauth.authentication.JwtService;
 import com.asofdate.sql.SqlDefine;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Map;
  * Created by hzwy23 on 2017/5/17.
  */
 @Controller
+@Api("系统首页管理")
 public class SystemPageController {
     private final static Logger logger = LoggerFactory.getLogger(SystemPageController.class);
     @Autowired
@@ -36,7 +38,7 @@ public class SystemPageController {
         return url;
     }
 
-    @RequestMapping(value = "/v1/auth/index/entry")
+    @RequestMapping(value = "/v1/auth/index/entry",method = RequestMethod.GET)
     public String subSystemPage(HttpServletRequest request) {
         Authentication authentication = JwtService
                 .getAuthentication((HttpServletRequest) request);

@@ -7,6 +7,7 @@ import com.asofdate.hauth.service.AuthService;
 import com.asofdate.hauth.service.UserService;
 import com.asofdate.utils.Hret;
 import com.asofdate.utils.ParseJson;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/v1/auth/user")
+@Api("用户信息管理")
 public class UserController {
     @Autowired
     private UserService userService;

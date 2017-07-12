@@ -6,6 +6,7 @@ import com.asofdate.hauth.service.AuthService;
 import com.asofdate.hauth.service.ShareDomainService;
 import com.asofdate.utils.Hret;
 import com.asofdate.utils.ParseJson;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/v1/auth/share/domain")
+@Api("域共享配置管理")
 public class ShareDomainController {
     private final Logger logger = LoggerFactory.getLogger(ShareDomainController.class);
 

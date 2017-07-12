@@ -12,6 +12,7 @@ import com.asofdate.utils.ParseJson;
 import com.asofdate.utils.RetMsg;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/v1/auth/role")
+@Api("角色定义管理")
 public class RoleController {
     private final Logger logger = LoggerFactory.getLogger(RoleController.class);
     @Autowired

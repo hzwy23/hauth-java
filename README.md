@@ -42,7 +42,7 @@ mysql -uroot -p 数据库名 < ./mysql_init.sql
 
 **2. 修改数据库连接密码，在admin/src/main/resources/application.properties,修改数据库连接信息
 
-**3. 编译asofdate hauth代码，生成可执行文件**
+**3. 编译asofdate hauth代码，生成可执行文件，请确保您能够连接maven仓库**
 
 ```shell
 mvn clean package -DskipTests=true

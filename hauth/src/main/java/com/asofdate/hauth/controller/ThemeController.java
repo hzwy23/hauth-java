@@ -6,6 +6,7 @@ import com.asofdate.hauth.service.UserDetailsService;
 import com.asofdate.sql.SqlDefine;
 import com.asofdate.utils.CryptoAES;
 import com.asofdate.utils.Hret;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by hzwy23 on 2017/5/18.
  */
 @Controller
+@Api("主题配置管理")
 public class ThemeController {
     private final static Logger logger = LoggerFactory.getLogger(SystemPageController.class);
     @Autowired

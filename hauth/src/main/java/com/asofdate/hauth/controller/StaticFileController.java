@@ -5,6 +5,7 @@ import com.asofdate.hauth.entity.RoleEntity;
 import com.asofdate.hauth.service.AuthService;
 import com.asofdate.hauth.service.DomainService;
 import com.asofdate.hauth.service.RoleService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.util.Map;
  * Created by hzwy23 on 2017/6/18.
  */
 @Controller
+@Api("静态页面资源管理")
 public class StaticFileController {
     @Autowired
     private DomainService domainService;
@@ -103,6 +105,11 @@ public class StaticFileController {
         map.put("domain_desc", roleEntity.getDomain_desc());
 
         return "hauth/res_role_rel_page";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index() {
+        return "index";
     }
 
     @RequestMapping(value = "/v1/auth/swagger/page", method = RequestMethod.GET)

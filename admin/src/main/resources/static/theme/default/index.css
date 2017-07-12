@@ -1,5 +1,8 @@
 .hzwy23-theme-background {
-    background-color: #009966;
+    background-image: url('/theme/default/bg_image.jpg');
+    filter:'progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')';
+    -moz-background-size:100% 100%;
+    background-size:100% 100%;
 }
 
 .theme-tab-color {

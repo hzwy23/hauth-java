@@ -3,6 +3,7 @@ package com.asofdate.hauth.controller;
 import com.asofdate.hauth.service.RoleResourceService;
 import com.asofdate.utils.Hret;
 import com.asofdate.utils.RetMsg;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/v1/auth/role/resource")
+@Api("角色与资源关系管理")
 public class RoleResourceController {
     @Autowired
     private RoleResourceService roleResourceService;

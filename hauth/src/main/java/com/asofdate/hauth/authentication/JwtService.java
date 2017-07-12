@@ -30,8 +30,7 @@ import java.util.List;
 @Component
 public class JwtService {
     static final long EXPIRATIONTIME = 432_000_000;     // 5天
-    static final String SECRET = "hzwy23@163.com-jwt";  // JWT密码
-    static final String TOKEN_PREFIX = "hzwy23";        // Token前缀
+    static final byte[] SECRET = new byte[]{'h', 'z', 'w', 'y', '2', '3', '@', '1', '6', '3', '.', 'c', 'o', 'm', '-', 'j', 'w', 't'}; // JWT密码
     static final String HEADER_STRING = "Authorization";// 存放Token的Header Key
     private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
     private static JwtService jwtService;
@@ -61,33 +60,37 @@ public class JwtService {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return;
         }
+
         // 生成JWT
-        String JWT = Jwts.builder()
-                // 保存权限（角色）
-                .claim("authorities", JWT_ROLES)
-                .claim("DomainId", userDetailsEntity.getDomain_id())
-                .claim("OrgUnitId", userDetailsEntity.getOrg_unit_id())
-                .claim("UserId", userDetailsEntity.getUser_id())
-                // 用户名写入标题
-                .setSubject(username)
-                .setIssuer("hzwy23")
+        String JWT = Jwts.builder().signWith(SignatureAlgorithm.HS256, SECRET)
+                .setHeaderParam("alg", "HS256")
+                .setHeaderParam("typ", "JWT")
                 // 有效期设置
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
+                // 用户名写入标题
+                .setIssuer("hzwy23")
+                .claim("UserId", userDetailsEntity.getUser_id())
+                .claim("DomainId", userDetailsEntity.getDomain_id())
+                .claim("OrgUnitId", userDetailsEntity.getOrg_unit_id())
+                // 保存权限（角色）
+                .claim("authorities", JWT_ROLES)
                 // 签名设置
-                .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
+        responseJWT(response, JWT);
 
+    }
 
-        // 将 JWT 写入 body
+    private static void responseJWT(HttpServletResponse response, String jwt) {
         try {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.setHeader(HEADER_STRING, JWT);
-            response.addCookie(new Cookie(HEADER_STRING, JWT));
-            response.getOutputStream().println(Hret.success(200, "success", JWT));
+            response.setHeader(HEADER_STRING, jwt);
+            response.addCookie(new Cookie(HEADER_STRING, jwt));
+            String retMsg = Hret.success(200, "success", jwt);
+            response.getOutputStream().println(retMsg);
         } catch (IOException e) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
@@ -101,23 +104,17 @@ public class JwtService {
 
         if (token != null && !token.isEmpty()) {
             // 解析 Token
-            Claims claims = Jwts.parser()
-                    // 验签
-                    .setSigningKey(SECRET)
-                    // 去掉 Bearer
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody();
+            Claims claims = Jwts.parser().setSigningKey(SECRET)
+                    .parseClaimsJws(token).getBody();
 
-            // 拿用户名
-            String user = claims.getSubject();
+            // 获取用户名
+            String user = claims.get("UserId").toString();
 
-            // 得到 权限（角色）
+            // 获取权限（角色）
             List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
 
             // 返回验证令牌
-            return user != null ?
-                    new UsernamePasswordAuthenticationToken(user, null, authorities) :
-                    null;
+            return user != null ? new UsernamePasswordAuthenticationToken(user, null, authorities) : null;
         }
         return null;
     }
@@ -129,12 +126,8 @@ public class JwtService {
         }
         if (token != null) {
             // 解析 Token
-            Claims claims = Jwts.parser()
-                    // 验签
-                    .setSigningKey(SECRET)
-                    // 去掉 Bearer
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody();
+            Claims claims = Jwts.parser().setSigningKey(SECRET)
+                    .parseClaimsJws(token).getBody();
 
             return new RequestUserDTO(
                     claims.get("DomainId", String.class),

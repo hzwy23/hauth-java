@@ -160,7 +160,7 @@ public class OracleDefine {
         SqlDefine.sys_rdbms_173 = "insert into dispatch_batch_group_status(batch_id,gid,status) values(?,?,?)";
         SqlDefine.sys_rdbms_174 = "update dispatch_batch_group_status set status = ? where batch_id = ? and gid = ?";
         SqlDefine.sys_rdbms_175 = "select status from dispatch_batch_group_status where batch_id = ? and gid = ?";
-        SqlDefine.sys_rdbms_176 = "update dispatch_batch_define set as_of_date = as_of_date + 1, batch_status = '1',start_date = sysdate, ret_msg = null, end_date = null where batch_id = ? and complete_date > as_of_date";
+        SqlDefine.sys_rdbms_176 = "TODO";
         SqlDefine.sys_rdbms_177 = "select count(*) from dispatch_batch_group_status where batch_id = ? and status = '2'";
         SqlDefine.sys_rdbms_178 = "update dispatch_batch_define set batch_status = '1',start_date = sysdate, ret_msg = '',end_date = '' where batch_id = ? and complete_date >= as_of_date";
         SqlDefine.sys_rdbms_179 = "update dispatch_batch_define set ret_msg = ? , end_date = sysdate, batch_status = ? where batch_id = ?";
