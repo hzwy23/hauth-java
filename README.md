@@ -62,7 +62,7 @@ mvn clean package -DskipTests=true
 
 E-mail： hzwy23@163.com
 
-demo演示地址：https://www.asofdate.com:8090
+demo演示地址：https://www.asofdate.com:8080
 
 用户名: demo
 
